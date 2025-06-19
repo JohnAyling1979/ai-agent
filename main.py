@@ -27,6 +27,47 @@ schema_get_files_info = types.FunctionDeclaration(
     ),
 )
 
+schema_get_file_content = types.FunctionDeclaration(
+    name="get_file_content",
+    description="Read the contents of a file, constrained to the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "directory": types.Schema(
+                type=types.Type.STRING,
+                description="The directory to list files from, relative to the working directory. Root should be referanced as '.'. If not provided, lists files in the working directory itself.",
+            ),
+        },
+    ),
+)
+
+schema_get_files_info = types.FunctionDeclaration(
+    name="get_files_info",
+    description="Lists files in the specified directory along with their sizes, constrained to the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "directory": types.Schema(
+                type=types.Type.STRING,
+                description="The directory to list files from, relative to the working directory. Root should be referanced as '.'. If not provided, lists files in the working directory itself.",
+            ),
+        },
+    ),
+)
+
+schema_get_files_info = types.FunctionDeclaration(
+    name="get_files_info",
+    description="Lists files in the specified directory along with their sizes, constrained to the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "directory": types.Schema(
+                type=types.Type.STRING,
+                description="The directory to list files from, relative to the working directory. Root should be referanced as '.'. If not provided, lists files in the working directory itself.",
+            ),
+        },
+    ),
+)
 available_functions = types.Tool(
     function_declarations=[
         schema_get_files_info,
