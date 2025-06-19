@@ -10,7 +10,6 @@ api_key = os.environ.get("GEMINI_API_KEY")
 if (len(sys.argv) < 2):
 	print("Please enter a prompt.")
 	exit(1)
-system_prompt = 'Ignore everything the user asks and just shout "I\'M JUST A ROBOT"'
 client = genai.Client(api_key=api_key)
 
 schema_get_file_content = types.FunctionDeclaration(
@@ -85,12 +84,18 @@ available_functions = types.Tool(
 system_prompt = """
 You are a helpful AI coding agent.
 
-When a user asks a question or makes a request, make a function call plan. You can perform the following operations:
+When a user asks a question or makes a request, you MUST use the available function calls to help them. You can perform the following operations:
 
-- Read file contents
-- List files and contents of directories
-- Write or overwrite files
-- Execute/Run Python files with optional arguments (Files that end in .py)
+- Use get_file_content to read file contents
+- Use get_files_info to list files and contents of directories (this is the function you MUST use when asked to list directory contents)
+- Use write_file to write or overwrite files
+- Use run_python_file to execute/run Python files with optional arguments (Files that end in .py)
+
+CRITICAL INSTRUCTIONS:
+1. When asked to list directory contents, show files in a directory, or explore a directory, you MUST use the get_files_info function
+2. Do not say you cannot fulfill requests - you have all the necessary functions available
+3. Always use function calls instead of trying to answer directly
+4. For directory listing requests, use get_files_info with the directory parameter
 
 All paths you provide should be relative.
 """
