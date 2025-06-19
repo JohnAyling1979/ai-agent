@@ -21,7 +21,7 @@ schema_get_file_content = types.FunctionDeclaration(
         properties={
             "file_path": types.Schema(
                 type=types.Type.STRING,
-                description="The file name to read, relative to the working directory.",
+                description="The file name to read. All paths are relative. You don't need the full path.",
             ),
         },
     ),
@@ -29,13 +29,13 @@ schema_get_file_content = types.FunctionDeclaration(
 
 schema_get_files_info = types.FunctionDeclaration(
     name="get_files_info",
-    description="List files and directories.",
+    description="List files and contents of directories.",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
             "directory": types.Schema(
                 type=types.Type.STRING,
-                description="The directory to list files from, relative to the working directory. The working directory will be provided by the user. You don't need the full path.",
+                description="The directory to list. All paths are relative. You don't need the full path.",
             ),
         },
     ),
@@ -49,7 +49,7 @@ schema_write_file = types.FunctionDeclaration(
         properties={
             "file_path": types.Schema(
                 type=types.Type.STRING,
-                description="The file name to write to, relative to the working directory.",
+                description="The file name to write to. All paths are relative. You don't need the full path.",
             ),
             "content": types.Schema(
                 type=types.Type.STRING,
@@ -61,13 +61,13 @@ schema_write_file = types.FunctionDeclaration(
 
 schema_run_python_file = types.FunctionDeclaration(
     name="run_python_file",
-    description="Execute Python files with optional arguments.",
+    description="Execute/Run Python files with optional arguments.",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
             "file_path": types.Schema(
                 type=types.Type.STRING,
-                description="The name of the python file to run, relative to the working directory. If no path is provided, the working directory is used.",
+                description="The name of the python file to run. All paths are relative. You don't need the full path. You don't need to know the contents of the file.",
             ),
         },
     ),
@@ -88,11 +88,11 @@ You are a helpful AI coding agent.
 When a user asks a question or makes a request, make a function call plan. You can perform the following operations:
 
 - Read file contents
-- List files and directories
+- List files and contents of directories
 - Write or overwrite files
-- Execute Python files with optional arguments
+- Execute/Run Python files with optional arguments (Files that end in .py)
 
-All paths you provide should be relative to the working directory. You do not need to specify the working directory in your function calls as it is automatically injected for security reasons.
+All paths you provide should be relative.
 """
 
 config=types.GenerateContentConfig(
