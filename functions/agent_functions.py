@@ -19,7 +19,7 @@ def get_file_content(working_directory, file_path):
 
 		return contents
 
-def get_files_info(working_directory, directory=None):
+def get_files_info(working_directory, directory='.'):
 	abs_working_directory, abs_directory = get_abs(working_directory, directory)
 
 	if (abs_working_directory not in abs_directory):

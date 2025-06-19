@@ -15,7 +15,7 @@ client = genai.Client(api_key=api_key)
 
 schema_get_file_content = types.FunctionDeclaration(
     name="get_file_content",
-    description="Read the contents of a file, constrained to the working directory.",
+    description="Read file contents.",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
@@ -29,13 +29,13 @@ schema_get_file_content = types.FunctionDeclaration(
 
 schema_get_files_info = types.FunctionDeclaration(
     name="get_files_info",
-    description="Lists file information if a directory is provided it lists all files in the specified directory along with their sizes, constrained to the working directory.",
+    description="List files and directories.",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
             "directory": types.Schema(
                 type=types.Type.STRING,
-                description="The directory or file to show file info for, relative to the working directory.",
+                description="The directory to list files from, relative to the working directory. The working directory will be provided by the user. You don't need the full path.",
             ),
         },
     ),
@@ -43,7 +43,7 @@ schema_get_files_info = types.FunctionDeclaration(
 
 schema_write_file = types.FunctionDeclaration(
     name="write_file",
-    description="Overwrite a file, constrained to the working directory.",
+    description="Write or overwrite files.",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
@@ -61,13 +61,13 @@ schema_write_file = types.FunctionDeclaration(
 
 schema_run_python_file = types.FunctionDeclaration(
     name="run_python_file",
-    description="Run a python file, constrained to the working directory.",
+    description="Execute Python files with optional arguments.",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
             "file_path": types.Schema(
                 type=types.Type.STRING,
-                description="The name of the python file to run, relative to the working directory.",
+                description="The name of the python file to run, relative to the working directory. If no path is provided, the working directory is used.",
             ),
         },
     ),
@@ -87,10 +87,10 @@ You are a helpful AI coding agent.
 
 When a user asks a question or makes a request, make a function call plan. You can perform the following operations:
 
-- List files and directories
 - Read file contents
-- Execute Python files with optional arguments
+- List files and directories
 - Write or overwrite files
+- Execute Python files with optional arguments
 
 All paths you provide should be relative to the working directory. You do not need to specify the working directory in your function calls as it is automatically injected for security reasons.
 """
