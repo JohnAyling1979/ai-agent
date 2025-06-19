@@ -21,7 +21,7 @@ schema_get_file_content = types.FunctionDeclaration(
         properties={
             "file_path": types.Schema(
                 type=types.Type.STRING,
-                description="The file name to read, relative to the working directory. Root should be referenced as '.'. If not provided, lists files in the working directory itself.",
+                description="The file name to read, relative to the working directory.",
             ),
         },
     ),
@@ -29,13 +29,13 @@ schema_get_file_content = types.FunctionDeclaration(
 
 schema_get_files_info = types.FunctionDeclaration(
     name="get_files_info",
-    description="Lists files in the specified directory along with their sizes, constrained to the working directory.",
+    description="Lists file information if a directory is provided it lists all files in the specified directory along with their sizes, constrained to the working directory.",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
             "directory": types.Schema(
                 type=types.Type.STRING,
-                description="The directory to list files from, relative to the working directory. Root should be referenced as '.'. If not provided, lists files in the working directory itself.",
+                description="The directory or file to show file info for, relative to the working directory.",
             ),
         },
     ),
@@ -49,7 +49,7 @@ schema_write_file = types.FunctionDeclaration(
         properties={
             "file_path": types.Schema(
                 type=types.Type.STRING,
-                description="The file name to write to, relative to the working directory. Root should be referenced as '.'. If not provided, lists files in the working directory itself.",
+                description="The file name to write to, relative to the working directory.",
             ),
             "content": types.Schema(
                 type=types.Type.STRING,
@@ -67,11 +67,12 @@ schema_run_python_file = types.FunctionDeclaration(
         properties={
             "file_path": types.Schema(
                 type=types.Type.STRING,
-                description="The file name to run, relative to the working directory. Root should be referenced as '.'. If not provided, lists files in the working directory itself.",
+                description="The name of the python file to run, relative to the working directory.",
             ),
         },
     ),
 )
+
 available_functions = types.Tool(
     function_declarations=[
         schema_get_file_content,
